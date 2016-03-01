@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
 import org.semanticweb.yars.nx.parser.Callback;
 import org.semanticweb.yars.tld.TldManager;
 
@@ -332,15 +333,18 @@ public class Crawler {
 			if (_queue != null)
 				r = _queue.getRedirects();
 			if (r == null)
-				try {
-					r = _redirsClass.newInstance();
-				} catch (InstantiationException e) {
-					_log.info("InstantiationException. Using dummy.");
-					r = new DummyRedirects();
-				} catch (IllegalAccessException e) {
-					_log.info("IllegalAccessException. Using dummy.");
-					r = new DummyRedirects();
-				}
+				//try {
+					//_log.info("The instance get executed");
+					//r = _redirsClass.newInstance();
+				     r = new DummyRedirects();
+				//} 
+			//catch (InstantiationException e) {
+					//_log.info("InstantiationException. Using dummy.");
+				//	r = new DummyRedirects();
+				//} catch (IllegalAccessException e) {
+				//	_log.info("IllegalAccessException. Using dummy.");
+				//	r = new DummyRedirects();
+				//}
 			_queue = new LoadBalancingQueue(_tldm, r, seen);
 		} else {
 			Redirects r = _queue.getRedirects();
